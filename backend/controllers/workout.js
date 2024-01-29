@@ -1,6 +1,6 @@
-import e from "express";
 import Workout from "../models/WorkoutSchema.js";
 import mongoose from "mongoose";
+
 export const getWorkouts = async (req, res) => {
   try {
     const workouts = await Workout.find({});

@@ -6,7 +6,10 @@ import {
   getWorkouts,
   updateWorkout,
 } from "../controllers/workout.js";
+import { requireAuth } from "../middleware/requireAuth.js";
+
 const router = express.Router();
+router.use(requireAuth);
 // GET SINGLE AND ALL WORKOUTS
 router.get("/", getWorkouts);
 router.get("/:id", getWorkoutById);

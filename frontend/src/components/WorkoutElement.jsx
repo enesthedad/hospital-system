@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
 import WorkoutCard from "./WorkoutCard";
 import WorkoutEditCard from "./WorkoutEditCard";
+import { useAuthContext } from "../hooks/useAuthContext";
 const WorkoutElement = ({ workout }) => {
+  const { user } = useAuthContext();
   const [edit, setEdit] = useState("");
   const { dispatch } = useWorkoutContext();
   const handleEdit = () => {
@@ -14,6 +16,10 @@ const WorkoutElement = ({ workout }) => {
       `http://localhost:8000/api/v1/${workout._id}`,
       {
         method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
       }
     );
     const json = await response.json();

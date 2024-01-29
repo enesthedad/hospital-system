@@ -12,7 +12,7 @@ export const signupValidator = async (email, password) => {
   if (!email || !password) {
     return {
       success: false,
-      error: `All fields must be filled!`,
+      error: `Fill all the fields!`,
     };
   }
   if (!validator.isStrongPassword(password)) {

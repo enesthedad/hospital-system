@@ -1,7 +1,8 @@
 import { useState, React } from "react";
 import { useWorkoutContext } from "../hooks/useWorkoutContext";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 const WorkoutEditCard = ({ handleEdit, workout }) => {
+  const { user } = useAuthContext();
   const { dispatch } = useWorkoutContext();
   const [updateTitle, setUpdateTitle] = useState(workout.title);
   const [updateLoad, setUpdateLoad] = useState(workout.load);
@@ -20,7 +21,10 @@ const WorkoutEditCard = ({ handleEdit, workout }) => {
       {
         method: "PATCH",
         body: JSON.stringify(editWorkout),
-        headers: { "content-type": "application/json" },
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${user.token}`,
+        },
       }
     );
     const json = await response.json();
